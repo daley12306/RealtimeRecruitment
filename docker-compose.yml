@@ -63,7 +63,6 @@ services:
 
   spark-worker:
     image: bitnami/spark:3.5.1
-    container_name: spark-worker
     depends_on:
       - spark-master
     environment:

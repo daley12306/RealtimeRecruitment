@@ -114,7 +114,7 @@ The `init.sql` script initializes the `candidate`, `position`, and `application`
 ### Access PostgreSQL manually:
 
 ```bash
-docker exec -it postgres psql -h localhost -U postgres -d recruitment
+docker exec -it postgres psql -U postgres -d recruitment
 ```
 
 ---
