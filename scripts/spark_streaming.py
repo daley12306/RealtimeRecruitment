@@ -1,7 +1,6 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType, TimestampType
 from pyspark.sql.functions import from_json, col, sum as _sum, count as _count, mean as _mean
-import psycopg2
 
 if __name__ == '__main__':
     # Create Spark session
@@ -63,8 +62,6 @@ if __name__ == '__main__':
                                     'experience_years_range',
                                     ((col('experience_years') / 2).cast('int') * 2)
                                 ).groupBy('experience_years_range').agg(_count('id').alias('application_count'))
-    # applications_per_location = enriched_applications_df.groupBy('city', 'country') \
-    #                                 .agg(_count('id').alias('application_count'))
 
     applications_per_position_to_kafka = (applications_per_position
                                              .selectExpr('to_json(struct(*)) AS value')
@@ -99,3 +96,4 @@ if __name__ == '__main__':
     # Await termination
     applications_per_position_to_kafka.awaitTermination()
     applications_per_score_range_to_kafka.awaitTermination()
+    applications_per_experience_years_to_kafka.awaitTermination()
