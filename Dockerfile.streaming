@@ -1,0 +1,5 @@
+FROM bitnami/spark:3.5.1
+COPY ./scripts/spark_streaming.py ./scripts/spark_streaming.py
+RUN pip install py4j psycopg2-binary
+RUN mkdir -p app/checkpoint app/checkpoint/checkpoint_position app/checkpoint/checkpoint_experience app/checkpoint/checkpoint_score
+CMD ["python", "./scripts/spark_streaming.py"]
